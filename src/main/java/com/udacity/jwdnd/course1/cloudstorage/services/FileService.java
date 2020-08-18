@@ -24,6 +24,10 @@ public class FileService {
         return fileMapper.findFilesByUserId(userId);
     }
 
+    public File getFilesByFileName(String fileName) {
+        return  fileMapper.findFilesByFileName(fileName);
+    }
+
 
     public int removeFile(int fileId) {
         return fileMapper.deleteFile(fileId);

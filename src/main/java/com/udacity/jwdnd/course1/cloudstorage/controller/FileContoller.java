@@ -48,6 +48,15 @@ public class FileContoller {
                                  RedirectAttributes redirectAttributes)
             throws IOException {
         try {
+            if(fileToUpload.isEmpty()){
+                redirectAttributes.addFlashAttribute("errorMessage", "You have to select a file to upload.");
+                return "redirect:/result?error";
+            }
+            if (fileService.getFilesByFileName(fileToUpload.getOriginalFilename()) != null)
+            {
+                redirectAttributes.addFlashAttribute("errorMessage", "File already exists.");
+                return "redirect:/result?error";
+            }
             User appUser = userService.getUser(authentication.getName());
             Integer userId = appUser.getUserId();
             fileService.uploadFile(fileToUpload, userId);
